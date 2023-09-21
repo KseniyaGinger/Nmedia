@@ -87,7 +87,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/common_spacing"
-        android:layout_marginBottom="441dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/barrier1"
         app:srcCompat="@drawable/baseline_favorite_border_24" />
@@ -100,10 +99,7 @@
         android:layout_marginEnd="@dimen/common_spacing"
         android:text="150"
         app:layout_constraintBottom_toBottomOf="@id/like"
-        app:layout_constraintStart_toEndOf="@id/like"
-        app:layout_constraintVertical_chainStyle="packed"
-        tools:layout_editor_absoluteX="40dp"
-        tools:layout_editor_absoluteY="265dp" />
+        app:layout_constraintStart_toEndOf="@id/like" />
 
     <ImageView
         android:id="@+id/share"
@@ -126,9 +122,7 @@
         android:text="10"
         app:layout_constraintBottom_toBottomOf="@id/share"
         app:layout_constraintStart_toEndOf="@id/share"
-        app:layout_constraintVertical_chainStyle="packed"
-        tools:layout_editor_absoluteX="40dp"
-        tools:layout_editor_absoluteY="265dp" />
+        app:layout_constraintVertical_chainStyle="packed" />
 
     <ImageView
         android:id="@+id/view"
