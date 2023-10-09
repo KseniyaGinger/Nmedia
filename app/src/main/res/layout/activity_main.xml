@@ -145,7 +145,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/common_spacing"
         android:layout_marginEnd="@dimen/common_spacing"
-        android:text="500"
+        android:text="400"
         app:layout_constraintBottom_toBottomOf="@id/share"
         app:layout_constraintStart_toEndOf="@id/view"
         app:layout_constraintEnd_toEndOf="parent"
