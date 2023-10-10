@@ -4,9 +4,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
 import ru.netology.nmedia.R
+import ru.netology.nmedia.adapter.PostAdapter
 import ru.netology.nmedia.databinding.ActivityMainBinding
+import ru.netology.nmedia.databinding.CardPostBinding
 import ru.netology.nmedia.dto.Post
-import ru.netology.nmedia.viewmodel.PostVewModel
+import ru.netology.nmedia.viewmodel.PostViewModel
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,54 +21,24 @@ class MainActivity : AppCompatActivity() {
         println(resources.displayMetrics.densityDpi) // 420
         println(resources.displayMetrics.density) // 2.625
 
-        binding.like.setOnClickListener {
-            binding.like.setImageResource(R.drawable.baseline_favorite_24)
-            println("like")
+        binding.root.setOnClickListener {
         }
 
-        binding.root.setOnClickListener{
-            println("root")
+        val viewModel: PostViewModel by viewModels()
+
+        val adapter = PostAdapter({
+            viewModel.likeById(it.id)
+        },
+         {
+            viewModel.sharedById(it.id)
+        })
+        binding.list.adapter = adapter
+
+        viewModel.data.observe(this) { posts ->
+            adapter.submitList(posts)
         }
-
-        val viewModel by viewModels<PostVewModel>()
-        viewModel.data.observe(this) { post ->
-            with(binding) {
-                author.text = post.author
-                content.text = post.content
-                published.text = post.published
-                likes.text = formatCount(post.likes)
-                shared.text = formatCount(post.shared)
-                views.text = formatCount(post.views)
-                like.setImageResource(if (post.likedByMe) (R.drawable.baseline_favorite_24) else R.drawable.baseline_favorite_border_24)
-
-               /* if (post.likedByMe) {
-                    like.setImageResource(R.drawable.baseline_favorite_24)
-                } */
-            }
-        }
-
-        binding.like.setOnClickListener {
-            viewModel.like()
-            //likes.text = formatCount(post.likes)
-        }
-
-       binding.share.setOnClickListener{
-            viewModel.share()
-            //shared.text = formatCount(post.shared)
-        }
-
     }
-
-        fun formatCount(count: Int): String {
-            return when {
-                count < 1000 -> count.toString()
-                count < 10000 -> "${count / 1000}K"
-                count < 1000000 -> {
-                    val decimal = count % 1000 / 100
-                    "${count / 1000}.$decimal" + "K"
-                }
-                else -> "${count / 1000000}M"
-            }
-        }
-
 }
+
+
+
