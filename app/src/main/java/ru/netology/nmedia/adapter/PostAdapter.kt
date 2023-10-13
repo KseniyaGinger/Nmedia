@@ -2,6 +2,7 @@ package ru.netology.nmedia.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.PopupMenu
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -9,14 +10,19 @@ import ru.netology.nmedia.R
 import ru.netology.nmedia.databinding.CardPostBinding
 import ru.netology.nmedia.dto.Post
 
-typealias LikeListener = (Post) -> Unit
-typealias ShareListener = (Post) -> Unit
+interface OnInteractionListener {
+    fun LikeListener (post: Post)
+    fun ShareListener (post: Post)
+    fun RemoveListener (post: Post)
+    fun EditListener (post: Post)
+}
 
-class PostAdapter(private val listener: LikeListener, private val listener1: ShareListener) : ListAdapter<Post, PostViewHolder>(PostDiffCallback) {
+class PostAdapter(
+    private val onInteractionListener: OnInteractionListener) : ListAdapter<Post, PostViewHolder>(PostDiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
         val view = CardPostBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return PostViewHolder(view, listener, listener1)
+        return PostViewHolder(view, onInteractionListener)
     }
 
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
@@ -26,7 +32,9 @@ class PostAdapter(private val listener: LikeListener, private val listener1: Sha
 
 }
 
-class PostViewHolder(private val binding: CardPostBinding, private val listener: LikeListener, private val listener1: ShareListener) :
+class PostViewHolder(
+    private val binding: CardPostBinding,
+    private val onInteractionListener: OnInteractionListener) :
     RecyclerView.ViewHolder(binding.root) {
 
     fun bind(post: Post) {
@@ -39,11 +47,32 @@ class PostViewHolder(private val binding: CardPostBinding, private val listener:
             views.text = formatCount(post.views)
 
             like.setImageResource(if (post.likedByMe) (R.drawable.baseline_favorite_24) else R.drawable.baseline_favorite_border_24)
+
             like.setOnClickListener {
-                listener(post)
+               onInteractionListener.LikeListener(post)
             }
+
             share.setOnClickListener {
-                listener1(post)
+                onInteractionListener.ShareListener(post)
+            }
+
+            menu.setOnClickListener {
+                PopupMenu(it.context, it).apply {
+                    inflate(R.menu.options_post)
+                    setOnMenuItemClickListener { menuItem ->
+                        when(menuItem.itemId) {
+                            R.id.edit -> {
+                                onInteractionListener.EditListener(post)
+                                true
+                            }
+                            R.id.remove -> {
+                                onInteractionListener.RemoveListener(post)
+                                true
+                            }
+                            else -> false
+                        }
+                    }
+                }.show()
             }
         }
     }
