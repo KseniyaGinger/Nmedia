@@ -3,10 +3,10 @@
     <string name="hello">NMedia!</string>
     <string name="description_post_author_avatar">author`s avatar</string>
     <string name="description_post_menu">menu</string>
-    <string name="menu_remove">remove</string>
-    <string name="post_text">post text</string>
-    <string name="description_post_save">description post save</string>
-    <string name="error_empty_content">error empty content</string>
-    <string name="menu_edit">edit</string>
-    <string name="edit">edit</string>
+    <string name="menu_remove" translatable="false">remove</string>
+    <string name="post_text" translatable="false">post text</string>
+    <string name="description_post_save" translatable="false">description post save</string>
+    <string name="error_empty_content" translatable="false">error empty content</string>
+    <string name="menu_edit" translatable="false">edit</string>
+    <string name="edit" translatable="false">edit</string>
 </resources>
