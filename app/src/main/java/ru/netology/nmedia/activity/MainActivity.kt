@@ -5,16 +5,15 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.core.view.isVisible
 import ru.netology.nmedia.R
 import ru.netology.nmedia.adapter.OnInteractionListener
 import ru.netology.nmedia.adapter.PostAdapter
 import ru.netology.nmedia.databinding.ActivityMainBinding
-import ru.netology.nmedia.databinding.CardPostBinding
 import ru.netology.nmedia.dto.Post
 import ru.netology.nmedia.util.AndroidUtils
 import ru.netology.nmedia.util.AndroidUtils.focusAndShowKeyboard
 import ru.netology.nmedia.viewmodel.PostViewModel
+
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -76,8 +75,8 @@ class MainActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            viewModel.changeContent(text)
-            viewModel.save()
+            viewModel.changeContentAndSave(text)
+
 
             binding.content.setText("")
             binding.group.visibility = View.GONE
@@ -89,6 +88,9 @@ class MainActivity : AppCompatActivity() {
             binding.group.visibility = View.GONE
             binding.content.clearFocus()
             binding.content.text.clear()
+
+            viewModel.cancelEdit()
+
             AndroidUtils.hideKeyboard(it)
         }
     }

@@ -1,5 +1,6 @@
 package ru.netology.nmedia.viewmodel
 
+import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import ru.netology.nmedia.dto.Post
@@ -26,26 +27,30 @@ class PostViewModel : ViewModel() {
     fun likeById(id: Long) = repository.likeById(id)
     fun sharedById (id: Long) = repository.sharedById(id)
     fun removeById (id: Long) = repository.removeById(id)
-    fun save() {
-        edited.value?.let {
-            repository.save(it)
-        }
-        edited.value = empty
-    }
+
 
     fun edit(post: Post) {
         edited.value = post
     }
 
-    fun changeContent(content: String) {
-        edited.value?.let {post ->
-            val text = content.trim()
-            if (text != post.content) {
-                edited.value = post.copy(content = text)
-            }
-        }
+    fun cancelEdit () {
+        edited.value = empty
     }
 
+    fun changeContentAndSave(content: String) {
+            val text = content.trim()
+            if (edited.value?.content == text) {
+                return
+            }
+        edited.value.let {
+            if (it != null) {
+                repository.save(it.copy(content = text))
+            }
+        }
+        edited.value = empty
+            }
+
 }
+
 
 
