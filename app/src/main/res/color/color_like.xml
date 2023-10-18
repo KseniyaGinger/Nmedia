@@ -3,5 +3,7 @@
     
     <item android:color="#f00" android:state_checked="true"/>
     <item android:color="?attr/colorControlNormal"/>
+    <item android:backgroundTint="#000000"/>
+
 
 </selector>

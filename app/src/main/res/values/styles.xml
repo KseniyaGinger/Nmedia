@@ -8,8 +8,23 @@
     <style name="Widget.AppTheme.LikeButton" parent="Widget.MaterialComponents.Button.TextButton.Icon">
         <item name="iconTint">@color/color_like</item>
         <item name="android:minWidth">0dp</item>
+
     </style>
 
+    <style name="Widget.AppTheme.ShareButton" parent="Widget.MaterialComponents.Button.TextButton.Icon">
+        <item name="iconTint">@color/color_other</item>
+        <item name="android:minWidth">0dp</item>
+    </style>
+
+    <style name="Widget.AppTheme.ViewButton" parent="Widget.MaterialComponents.Button.TextButton.Icon">
+        <item name="iconTint">@color/color_other</item>
+        <item name="android:minWidth">0dp</item>
+    </style>
+
+    <style name="Widget.AppTheme.MenuButton" parent="Widget.MaterialComponents.Button.TextButton.Icon">
+        <item name="iconTint">@color/color_other</item>
+        <item name="android:minWidth">0dp</item>
+    </style>
 
 
 </resources>
