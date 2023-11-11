@@ -9,4 +9,7 @@
     <string name="error_empty_content" translatable="false">error empty content</string>
     <string name="menu_edit" translatable="false">edit</string>
     <string name="edit" translatable="false">edit</string>
+    <string name="empty_text_error" translatable="false">текст не может быть пустым</string>
+    <string name="add_post" translatable="false">create new post</string>
+    <string name="play_video" translatable="false">play video</string>
 </resources>

@@ -1,8 +1,10 @@
 package ru.netology.nmedia.viewmodel
 
 import android.view.View
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import ru.netology.nmedia.R
 import ru.netology.nmedia.dto.Post
 import ru.netology.nmedia.repository.PostRepository
 import ru.netology.nmedia.repository.PostRepositoryInMemoryImpl
@@ -15,7 +17,8 @@ private val empty = Post(
     likedByMe = false,
     likes = 0,
     shared = 0,
-    views = 0
+    views = 0,
+    video = null
 )
 
 class PostViewModel : ViewModel() {
