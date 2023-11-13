@@ -68,6 +68,8 @@ class MainActivity : AppCompatActivity() {
                     type = "text/*"
                 }
 
+                viewModel.sharedById(post.id)
+
                 val chooser = Intent.createChooser(intent, null)
                 startActivity(chooser)
             }
