@@ -12,11 +12,12 @@ import ru.netology.nmedia.databinding.CardPostBinding
 import ru.netology.nmedia.dto.Post
 
 interface OnInteractionListener {
-    fun LikeListener (post: Post)
-    fun ShareListener (post: Post)
-    fun RemoveListener (post: Post)
-    fun EditListener (post: Post)
-    fun PlayVideo (post: Post)
+    fun likeListener (post: Post)
+    fun shareListener (post: Post)
+    fun removeListener (post: Post)
+    fun editListener (post: Post)
+    fun playVideo (post: Post)
+    fun showPost(post: Post)
 }
 
 class PostAdapter(
@@ -53,20 +54,27 @@ class PostViewHolder(
 
             attach.isVisible = post.video != null
 
+            root.setOnClickListener{}
+
             like.setOnClickListener {
-               onInteractionListener.LikeListener(post)
+               onInteractionListener.likeListener(post)
             }
 
             share.setOnClickListener {
-                onInteractionListener.ShareListener(post)
+                onInteractionListener.shareListener(post)
             }
 
             play.setOnClickListener{
-                onInteractionListener.PlayVideo(post)
+                onInteractionListener.playVideo(post)
             }
 
             image.setOnClickListener{
-                onInteractionListener.PlayVideo(post)
+                onInteractionListener.playVideo(post)
+            }
+
+            //здесь должен быть fragment post?
+            cardPost.setOnClickListener{
+                onInteractionListener.showPost(post)
             }
 
             menu.setOnClickListener {
@@ -75,11 +83,11 @@ class PostViewHolder(
                     setOnMenuItemClickListener { menuItem ->
                         when(menuItem.itemId) {
                             R.id.edit -> {
-                                onInteractionListener.EditListener(post)
+                                onInteractionListener.editListener(post)
                                 true
                             }
                             R.id.remove -> {
-                                onInteractionListener.RemoveListener(post)
+                                onInteractionListener.removeListener(post)
                                 true
                             }
                             else -> false
