@@ -78,7 +78,8 @@ class PostFragment : Fragment() {
 
                     override fun showPost(post: Post) {
                         findNavController().navigate(
-                            R.id.action_feedFragment_to_postFragment,
+                            //R.id.action_feedFragment_to_postFragment,
+                            R.id.action_postFragment_to_PostFragment,
                             Bundle().apply { longArg = post.id })
                     }
                 }
