@@ -1,17 +1,18 @@
 package ru.netology.nmedia.activity
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.PopupMenu
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import ru.netology.nmedia.R
+import ru.netology.nmedia.activity.AppActivity.Companion.textArg
 import ru.netology.nmedia.adapter.OnInteractionListener
-import ru.netology.nmedia.databinding.CardPostBinding
+import ru.netology.nmedia.adapter.PostViewHolder
 import ru.netology.nmedia.databinding.FragmentPostBinding
 import ru.netology.nmedia.dto.Post
 import ru.netology.nmedia.util.LongArg
@@ -22,6 +23,7 @@ class PostFragment : Fragment() {
     companion object {
         var Bundle.longArg: Long by LongArg
     }
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,80 +40,51 @@ class PostFragment : Fragment() {
                 findNavController().navigateUp()
                 return@observe
             }
+            PostViewHolder(
+                binding.onePost,
+                object : OnInteractionListener { /* переопределённые методы для этого фрагмента */
+                    override fun likeListener(post: Post) {
+                        viewModel.likeById(post.id)
+                    }
+
+                    override fun shareListener(post: Post) {
+                        val intent = Intent().apply {
+                            action = Intent.ACTION_SEND
+                            putExtra(Intent.EXTRA_TEXT, post.content)
+                            type = "text/*"
+                        }
+
+                        viewModel.sharedById(post.id)
+
+                        val chooser = Intent.createChooser(intent, null)
+                        startActivity(chooser)
+                    }
+
+                    override fun removeListener(post: Post) {
+                        viewModel.removeById(post.id)
+                    }
+
+                    override fun editListener(post: Post) {
+                        viewModel.edit(post)
+                        findNavController().navigate(
+                            R.id.action_feedFragment_to_newPostFragment,
+                            Bundle().apply { textArg = post.content })
+                    }
+
+                    override fun playVideo(post: Post) {
+                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(post.video))
+                        startActivity(intent)
+                    }
+
+                    override fun showPost(post: Post) {
+                        findNavController().navigate(
+                            R.id.action_feedFragment_to_postFragment,
+                            Bundle().apply { longArg = post.id })
+                    }
+                }
+            ).bind(post)
         }
         return binding.root
-    }
-
- fun fillOnePost(binding: CardPostBinding, onInteractionListener: OnInteractionListener, post: Post) {
-     with(binding) {
-         author.text = post.author
-         content.text = post.content
-         published.text = post.published
-
-         share.text = formatCount(post.shared)
-         view.text = formatCount(post.views)
-
-         like.isChecked = post.likedByMe
-         like.text = formatCount(post.likes)
-
-         attach.isVisible = post.video != null
-
-         root.setOnClickListener {}
-
-         like.setOnClickListener {
-             onInteractionListener.likeListener(post)
-         }
-
-         share.setOnClickListener {
-             onInteractionListener.shareListener(post)
-         }
-
-         play.setOnClickListener {
-             onInteractionListener.playVideo(post)
-         }
-
-         image.setOnClickListener {
-             onInteractionListener.playVideo(post)
-         }
-
-         //здесь должен быть fragment post?
-         cardPost.setOnClickListener {
-             onInteractionListener.showPost(post)
-         }
-
-         menu.setOnClickListener {
-             PopupMenu(it.context, it).apply {
-                 inflate(R.menu.options_post)
-                 setOnMenuItemClickListener { menuItem ->
-                     when (menuItem.itemId) {
-                         R.id.edit -> {
-                             onInteractionListener.editListener(post)
-                             true
-                         }
-
-                         R.id.remove -> {
-                             onInteractionListener.removeListener(post)
-                             true
-                         }
-
-                         else -> false
-                     }
-                 }
-             }.show()
-         }
-     }
- }
-    fun formatCount(count: Int): String {
-        return when {
-            count < 1000 -> count.toString()
-            count < 10000 -> "${count / 1000}K"
-            count < 1000000 -> {
-                val decimal = count % 1000 / 100
-                "${count / 1000}.$decimal" + "K"
-            }
-
-            else -> "${count / 1000000}M"
-        }
     }
 }
 

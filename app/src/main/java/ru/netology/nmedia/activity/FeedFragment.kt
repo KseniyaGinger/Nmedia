@@ -60,9 +60,8 @@ class FeedFragment : Fragment() {
 
             override fun showPost(post: Post) {
                 findNavController().navigate(
-                    R.id.action_feedFragment_to_postFragment
-                )
-                Bundle().apply { longArg = post.id }
+                    R.id.action_feedFragment_to_postFragment,
+                Bundle().apply { longArg = post.id })
             }
 
             override fun shareListener(post: Post) {
