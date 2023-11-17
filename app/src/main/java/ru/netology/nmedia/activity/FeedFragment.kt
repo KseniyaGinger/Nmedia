@@ -96,44 +96,4 @@ class FeedFragment : Fragment() {
 }
 
 
-/* viewModel.edited.observe(this) {post ->
-     if (post.id != 0L) {
-         binding.group.visibility = View.VISIBLE
-         binding.content.setText(post.content)
-         binding.content.requestFocus()
-         binding.content.focusAndShowKeyboard()
-         binding.contentLine.setText(post.content)
-     }
- }
-
-
- binding.save.setOnClickListener {
-     val text = binding.content.text.toString()
-     if (text.isBlank()) {
-         Toast.makeText(this, R.string.error_empty_content, Toast.LENGTH_LONG).show()
-         return@setOnClickListener
-     }
-
-     viewModel.changeContentAndSave(text)
-
-
-     binding.content.setText("")
-     binding.group.visibility = View.GONE
-     binding.content.clearFocus()
-     AndroidUtils.hideKeyboard(it)
- }
-
- binding.clear.setOnClickListener {
-     binding.group.visibility = View.GONE
-     binding.content.clearFocus()
-     binding.content.text.clear()
-
-     viewModel.cancelEdit()
-
-     AndroidUtils.hideKeyboard(it)
- }
-}
-} */
-
-
 

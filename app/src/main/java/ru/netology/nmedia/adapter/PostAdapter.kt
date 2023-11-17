@@ -72,7 +72,6 @@ class PostViewHolder(
                 onInteractionListener.playVideo(post)
             }
 
-            //здесь должен быть fragment post?
             cardPost.setOnClickListener{
                 onInteractionListener.showPost(post)
             }

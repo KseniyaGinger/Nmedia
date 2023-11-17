@@ -42,7 +42,7 @@ class PostFragment : Fragment() {
             }
             PostViewHolder(
                 binding.onePost,
-                object : OnInteractionListener { /* переопределённые методы для этого фрагмента */
+                object : OnInteractionListener {
                     override fun likeListener(post: Post) {
                         viewModel.likeById(post.id)
                     }
@@ -54,7 +54,7 @@ class PostFragment : Fragment() {
                             type = "text/*"
                         }
 
-                        viewModel.sharedById(post.id)
+                       viewModel.sharedById(post.id)
 
                         val chooser = Intent.createChooser(intent, null)
                         startActivity(chooser)
