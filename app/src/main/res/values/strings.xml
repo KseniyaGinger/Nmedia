@@ -12,4 +12,8 @@
     <string name="empty_text_error" translatable="false">текст не может быть пустым</string>
     <string name="add_post" translatable="false">create new post</string>
     <string name="play_video" translatable="false">play video</string>
+    <string name="google_play_unavailable" translatable="false">google play unavailable</string>
+    <string name="channel_remote_name" translatable="false">name of channel</string>
+    <string name="channel_remote_description" translatable="false">description of channel</string>
+    <string name="notification_user_liked" translatable="false">user %1$s liked %2$s notification</string>
 </resources>
